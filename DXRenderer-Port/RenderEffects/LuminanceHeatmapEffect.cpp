@@ -75,22 +75,22 @@ IFACEMETHODIMP LuminanceHeatmapEffect::Initialize(
 {
     // To maintain consistency across different DPIs, this effect needs to cover more pixels at
     // higher than normal DPIs. The context is saved here so the effect can later retrieve the DPI.
-    m_effectContext = pEffectContext;
-    BasicReaderWriter^ reader = ref new BasicReaderWriter();
-    Platform::Array<unsigned char, 1U>^ data;
+    m_effectContext.attach(pEffectContext);
+    std::unique_ptr<DXRenderer::BasicReaderWriter> reader = std::make_unique<DXRenderer::BasicReaderWriter>();
+    std::vector<unsigned char> data;
 
     try
     {
         // CSO files are stored in the project subfolder in the app install location.
-        data = reader->ReadData("DXRenderer\\LuminanceHeatmapEffect.cso");
+        data = reader->ReadData(L"DXRenderer\\LuminanceHeatmapEffect.cso");
     }
-    catch (Platform::Exception^ e)
+    catch (std::exception e)
     {
         // Return error if file can not be read.
-        return e->HResult;
+        return E_FAIL;
     }
 
-    HRESULT hr = pEffectContext->LoadPixelShader(GUID_LuminanceHeatmapPixelShader, data->Data, data->Length);
+    HRESULT hr = pEffectContext->LoadPixelShader(GUID_LuminanceHeatmapPixelShader, data.data(), static_cast<UINT>(data.size()));
 
     // This loads the shader into the Direct2D image effects system and associates it with the GUID passed in.
     // If this method is called more than once (say by other instances of the effect) with the same GUID,
@@ -118,6 +118,8 @@ HRESULT LuminanceHeatmapEffect::UpdateConstants()
 
 IFACEMETHODIMP LuminanceHeatmapEffect::PrepareForRender(D2D1_CHANGE_TYPE changeType)
 {
+    UNREFERENCED_PARAMETER(changeType);
+
     return UpdateConstants();
 }
 
@@ -125,6 +127,8 @@ IFACEMETHODIMP LuminanceHeatmapEffect::PrepareForRender(D2D1_CHANGE_TYPE changeT
 // as a single input effect.
 IFACEMETHODIMP LuminanceHeatmapEffect::SetGraph(_In_ ID2D1TransformGraph* pGraph)
 {
+    UNREFERENCED_PARAMETER(pGraph);
+
     return E_NOTIMPL;
 }
 
@@ -132,7 +136,7 @@ IFACEMETHODIMP LuminanceHeatmapEffect::SetGraph(_In_ ID2D1TransformGraph* pGraph
 // how to set the state of the GPU.
 IFACEMETHODIMP LuminanceHeatmapEffect::SetDrawInfo(_In_ ID2D1DrawInfo* pDrawInfo)
 {
-    m_drawInfo = pDrawInfo;
+    m_drawInfo.attach(pDrawInfo);
 
     return m_drawInfo->SetPixelShader(GUID_LuminanceHeatmapPixelShader);
 }
@@ -167,6 +171,8 @@ IFACEMETHODIMP LuminanceHeatmapEffect::MapInputRectsToOutputRect(
     _Out_ D2D1_RECT_L* pOutputOpaqueSubRect
     )
 {
+    UNREFERENCED_PARAMETER(pInputOpaqueSubRects);
+
     // This effect has exactly 1 input.
     if (inputRectCount != 1)
     {
@@ -189,6 +195,9 @@ IFACEMETHODIMP LuminanceHeatmapEffect::MapInvalidRect(
     _Out_ D2D1_RECT_L* pInvalidOutputRect
     ) const
 {
+    UNREFERENCED_PARAMETER(invalidInputRect);
+    UNREFERENCED_PARAMETER(inputIndex);
+
     HRESULT hr = S_OK;
 
     // Indicate that the entire output may be invalid.

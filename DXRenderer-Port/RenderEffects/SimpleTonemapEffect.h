@@ -111,10 +111,10 @@ private:
         float outputMaxLum; // In scRGB values.
     } m_constants;
 
-    Microsoft::WRL::ComPtr<ID2D1DrawInfo>      m_drawInfo;
-    Microsoft::WRL::ComPtr<ID2D1EffectContext> m_effectContext;
-    LONG                                       m_refCount;
-    D2D1_RECT_L                                m_inputRect;
-    float                                      m_dpi;
-    D2D1_HDRTONEMAP_DISPLAY_MODE               m_ignored;
+    winrt::com_ptr<ID2D1DrawInfo>      m_drawInfo;
+    winrt::com_ptr<ID2D1EffectContext> m_effectContext;
+    LONG                               m_refCount;
+    D2D1_RECT_L                        m_inputRect;
+    float                              m_dpi;
+    D2D1_HDRTONEMAP_DISPLAY_MODE       m_ignored;
 };

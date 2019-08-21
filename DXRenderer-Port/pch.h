@@ -19,6 +19,7 @@
 #include <winrt/Windows.UI.Xaml.Navigation.h>
 
 #include <pplawait.h>
+#include <shcore.h>
 
 // DirectX
 #include <dxgi1_6.h>

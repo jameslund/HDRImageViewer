@@ -94,9 +94,9 @@ private:
         float         dpi;
     } m_constants;
 
-    Microsoft::WRL::ComPtr<ID2D1DrawInfo>      m_drawInfo;
-    Microsoft::WRL::ComPtr<ID2D1EffectContext> m_effectContext;
-    LONG                                       m_refCount;
-    D2D1_RECT_L                                m_inputRect;
-    float                                      m_dpi;
+    winrt::com_ptr<ID2D1DrawInfo>      m_drawInfo;
+    winrt::com_ptr<ID2D1EffectContext> m_effectContext;
+    LONG                               m_refCount;
+    D2D1_RECT_L                        m_inputRect;
+    float                              m_dpi;
 };
