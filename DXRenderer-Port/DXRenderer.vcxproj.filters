@@ -11,6 +11,12 @@
     <Filter Include="DXCommon">
       <UniqueIdentifier>{e7d5a838-baa2-4014-b90c-5ca935ac248e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderEffects">
+      <UniqueIdentifier>{3836573d-c3a6-4a4f-a234-a4dd4dcbc4d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectXTex">
+      <UniqueIdentifier>{c9cec61e-f001-49d0-94e1-0752654fe93d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -22,6 +28,10 @@
     <ClCompile Include="Common\DeviceResources.cpp">
       <Filter>DXCommon</Filter>
     </ClCompile>
+    <ClCompile Include="DirectXTex\DirectXTexEXR.cpp">
+      <Filter>DirectXTex</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -34,6 +44,11 @@
     <ClInclude Include="Common\DirectXHelper.h">
       <Filter>DXCommon</Filter>
     </ClInclude>
+    <ClInclude Include="DirectXTex\DirectXTexEXR.h">
+      <Filter>DirectXTex</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageInfo.h" />
+    <ClInclude Include="ImageLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Class.idl" />
@@ -44,8 +59,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="readme.txt" />
   </ItemGroup>
 </Project>
