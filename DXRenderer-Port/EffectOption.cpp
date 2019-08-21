@@ -6,14 +6,17 @@ namespace winrt::DXRenderer::implementation
 {
     EffectOption::EffectOption(hstring const& description, DXRenderer::RenderEffectKind const& kind)
     {
-        throw hresult_not_implemented();
+        this->m_description = description;
+        this->m_kind = kind;
     }
+
     hstring EffectOption::Description()
     {
-        throw hresult_not_implemented();
+        return m_description;
     }
+
     DXRenderer::RenderEffectKind EffectOption::Kind()
     {
-        throw hresult_not_implemented();
+        return m_kind;
     }
 }
