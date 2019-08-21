@@ -19,10 +19,19 @@
     <ClCompile Include="Common\BasicReaderWriter.cpp">
       <Filter>DXCommon</Filter>
     </ClCompile>
+    <ClCompile Include="Common\DeviceResources.cpp">
+      <Filter>DXCommon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Common\BasicReaderWriter.h">
+      <Filter>DXCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\DeviceResources.h">
+      <Filter>DXCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\DirectXHelper.h">
       <Filter>DXCommon</Filter>
     </ClInclude>
   </ItemGroup>

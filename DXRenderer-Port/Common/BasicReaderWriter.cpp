@@ -20,6 +20,8 @@ using namespace Windows::Storage::Streams;
 using namespace Windows::Foundation;
 using namespace Windows::ApplicationModel;
 
+using namespace DXRenderer;
+
 BasicReaderWriter::BasicReaderWriter()
 {
     m_location = Windows::ApplicationModel::Package::Current().InstalledLocation();
