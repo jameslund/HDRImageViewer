@@ -17,10 +17,12 @@
     <Filter Include="DirectXTex">
       <UniqueIdentifier>{c9cec61e-f001-49d0-94e1-0752654fe93d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RuntimeClasses">
+      <UniqueIdentifier>{112772ca-c56e-4783-bc84-ae331e51833f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Class.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="Common\BasicReaderWriter.cpp">
       <Filter>DXCommon</Filter>
@@ -44,6 +46,12 @@
     </ClCompile>
     <ClCompile Include="RenderEffects\SphereMapEffect.cpp">
       <Filter>RenderEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectOption.cpp">
+      <Filter>RuntimeClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderOptionsViewModel.cpp">
+      <Filter>RuntimeClasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +83,12 @@
     <ClInclude Include="RenderEffects\SphereMapEffect.h">
       <Filter>RenderEffects</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Midl Include="Class.idl" />
+    <ClInclude Include="EffectOption.h">
+      <Filter>RuntimeClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderOptionsViewModel.h">
+      <Filter>RuntimeClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXRenderer.def" />
@@ -99,5 +110,10 @@
     <FxCompile Include="RenderEffects\SphereMapEffect.hlsl">
       <Filter>RenderEffects</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="DXRenderer.idl">
+      <Filter>RuntimeClasses</Filter>
+    </Midl>
   </ItemGroup>
 </Project>

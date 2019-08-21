@@ -1,0 +1,37 @@
+namespace DXRenderer
+{
+    /// <summary>
+    /// Supported render effects which are inserted into the render pipeline.
+    /// Includes HDR tonemappers and useful visual tools.
+    /// Each render effect is implemented as a custom Direct2D effect.
+    /// </summary>
+    enum RenderEffectKind
+    {
+        HdrTonemap,
+        None,
+        SdrOverlay,
+        LuminanceHeatmap,
+        SphereMap,
+    };
+
+    /// <summary>
+    /// Associates a effect type used by the renderer to a descriptive string bound to UI.
+    /// </summary>
+    runtimeclass EffectOption
+    {
+        EffectOption(String description, RenderEffectKind kind);
+
+        String Description { get; };
+        RenderEffectKind Kind { get; };
+    }
+
+    /// <summary>
+    /// Allows databinding of render options to the UI: image colorspace and render effect/tonemapper.
+    /// </summary>
+    runtimeclass RenderOptionsViewModel
+    {
+        RenderOptionsViewModel();
+
+        Windows.Foundation.Collections.IVectorView<EffectOption> RenderEffects { get; };
+    }
+}

@@ -148,38 +148,36 @@
     <ClInclude Include="Common\DeviceResources.h" />
     <ClInclude Include="Common\DirectXHelper.h" />
     <ClInclude Include="DirectXTex\DirectXTexEXR.h" />
+    <ClInclude Include="EffectOption.h" />
     <ClInclude Include="ImageExporter.h" />
     <ClInclude Include="ImageInfo.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Class.h">
-      <DependentUpon>Class.idl</DependentUpon>
-    </ClInclude>
     <ClInclude Include="RenderEffects\LuminanceHeatmapEffect.h" />
     <ClInclude Include="RenderEffects\SdrOverlayEffect.h" />
     <ClInclude Include="RenderEffects\SimpleTonemapEffect.h" />
     <ClInclude Include="RenderEffects\SphereMapEffect.h" />
+    <ClInclude Include="RenderOptionsViewModel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\BasicReaderWriter.cpp" />
     <ClCompile Include="Common\DeviceResources.cpp" />
     <ClCompile Include="DirectXTex\DirectXTexEXR.cpp" />
+    <ClCompile Include="EffectOption.cpp" />
     <ClCompile Include="ImageExporter.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Class.cpp">
-      <DependentUpon>Class.idl</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="RenderEffects\LuminanceHeatmapEffect.cpp" />
     <ClCompile Include="RenderEffects\SdrOverlayEffect.cpp" />
     <ClCompile Include="RenderEffects\SimpleTonemapEffect.cpp" />
     <ClCompile Include="RenderEffects\SphereMapEffect.cpp" />
+    <ClCompile Include="RenderOptionsViewModel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Class.idl" />
+    <Midl Include="DXRenderer.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DXRenderer.def" />
