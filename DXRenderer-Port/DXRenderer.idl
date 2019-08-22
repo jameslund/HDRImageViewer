@@ -14,6 +14,24 @@ namespace DXRenderer
         SphereMap,
     };
 
+    struct ImageInfo
+    {
+        Int32                                       bitsPerPixel;
+        Int32                                       bitsPerChannel;
+        Boolean                                     isFloat;
+        Windows.Foundation.Size                     size;
+        Int32                                       numProfiles;
+        Windows.Graphics.Display.AdvancedColorKind  imageKind;
+        Boolean                                     isXboxHdrScreenshot;
+        Boolean                                     isValid;
+    };
+
+    struct ImageCLL
+    {
+        Single  maxNits;
+        Single  medNits;
+    };
+
     /// <summary>
     /// Associates a effect type used by the renderer to a descriptive string bound to UI.
     /// </summary>
@@ -33,5 +51,56 @@ namespace DXRenderer
         RenderOptionsViewModel();
 
         Windows.Foundation.Collections.IVectorView<EffectOption> RenderEffects { get; };
+    }
+
+    /// <summary>
+    /// Main manager of all native DirectX image rendering resources.
+    /// </summary
+    [default_interface]
+    runtimeclass ImageRenderer
+    {
+        ImageRenderer(Windows.UI.Xaml.Controls.SwapChainPanel panel);
+
+        // IDeviceNotify
+        void OnDeviceLost();
+        void OnDeviceRestored();
+
+        // DeviceResources wrapper methods for Windows Runtime Component
+        void SetSwapChainPanel(Windows.UI.Xaml.Controls.SwapChainPanel panel);
+        void SetLogicalSize(Windows.Foundation.Size logicalSize);
+        void SetCurrentOrientation(Windows.Graphics.Display.DisplayOrientations currentOrientation);
+        void SetDpi(Single dpi);
+        void SetCompositionScale(Single compositionScaleX, Single compositionScaleY);
+        void ValidateDevice();
+        void HandleDeviceLost();
+        void Trim();
+        void Present();
+
+        void CreateDeviceIndependentResources();
+        void CreateDeviceDependentResources();
+        void CreateWindowSizeDependentResources();
+        void ReleaseDeviceDependentResources();
+
+        void Draw();
+
+        void CreateImageDependentResources();
+        void ReleaseImageDependentResources();
+
+        void UpdateManipulationState(Windows.UI.Input.ManipulationUpdatedEventArgs args);
+
+        // Returns the computed MaxCLL and AvgCLL of the image in nits. While HDR metadata is a
+        // property of the image (and is independent of rendering), our implementation
+        // can't compute it until this point.
+        //ImageCLL FitImageToWindow(Boolean computeMetadata);
+
+        void SetRenderOptions(
+            RenderEffectKind effect,
+            Single brightnessAdjustment,
+            Windows.Graphics.Display.AdvancedColorInfo acInfo
+        );
+
+        //ImageInfo LoadImageFromWic(Windows.Storage.Streams.IRandomAccessStream imageStream);
+        //ImageInfo LoadImageFromDirectXTex(String filename, String extension);
+        void      ExportImageToSdr(Windows.Storage.Streams.IRandomAccessStream outputStream, Guid wicFormat);
     }
 }

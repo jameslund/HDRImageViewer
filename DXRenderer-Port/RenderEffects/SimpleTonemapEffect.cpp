@@ -154,7 +154,7 @@ IFACEMETHODIMP SimpleTonemapEffect::Initialize(
     // To maintain consistency across different DPIs, this effect needs to cover more pixels at
     // higher than normal DPIs. The context is saved here so the effect can later retrieve the DPI.
     m_effectContext.attach(pEffectContext);
-    std::unique_ptr<DXRenderer::BasicReaderWriter> reader = std::make_unique<DXRenderer::BasicReaderWriter>();
+    std::unique_ptr<::DXRenderer::BasicReaderWriter> reader = std::make_unique<::DXRenderer::BasicReaderWriter>();
     std::vector<unsigned char> data;
 
     try

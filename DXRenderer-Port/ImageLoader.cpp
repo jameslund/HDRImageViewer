@@ -4,7 +4,7 @@
 #include "DirectXTex.h"
 #include "DirectXTex\DirectXTexEXR.h"
 
-using namespace DXRenderer;
+using namespace ::DXRenderer;
 
 using namespace DirectX;
 using namespace std;
@@ -28,7 +28,7 @@ ImageLoader::~ImageLoader()
 /// <summary>
 /// Performs CPU-side decoding of an image using WIC and reads key image parameters.
 /// </summary>
-ImageInfo ImageLoader::LoadImageFromWic(_In_ IStream* imageStream)
+winrt::DXRenderer::ImageInfo ImageLoader::LoadImageFromWic(_In_ IStream* imageStream)
 {
     EnforceStates(1, ImageLoaderState::NotInitialized);
 
@@ -63,7 +63,7 @@ ImageInfo ImageLoader::LoadImageFromWic(_In_ IStream* imageStream)
 /// </remarks>
 /// <param name="filename">The file path must be accessible from the sandbox, e.g. from the app's temp folder.</param>
 /// <param name="extension">File extension with leading period. Needed as DirectXTex doesn't auto-detect codec type.</param>
-ImageInfo ImageLoader::LoadImageFromDirectXTex(wstring filename, wstring extension)
+winrt::DXRenderer::ImageInfo ImageLoader::LoadImageFromDirectXTex(wstring filename, wstring extension)
 {
     EnforceStates(1, ImageLoaderState::NotInitialized);
 

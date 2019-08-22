@@ -18,6 +18,9 @@
 #include <winrt/Windows.UI.Xaml.Markup.h>
 #include <winrt/Windows.UI.Xaml.Navigation.h>
 
+// Include our own projected types.
+#include <winrt/DXRenderer.h>
+
 #include <pplawait.h>
 #include <shcore.h>
 

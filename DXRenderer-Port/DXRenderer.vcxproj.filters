@@ -53,6 +53,9 @@
     <ClCompile Include="RenderOptionsViewModel.cpp">
       <Filter>RuntimeClasses</Filter>
     </ClCompile>
+    <ClCompile Include="ImageRenderer.cpp">
+      <Filter>RuntimeClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -68,7 +71,6 @@
     <ClInclude Include="DirectXTex\DirectXTexEXR.h">
       <Filter>DirectXTex</Filter>
     </ClInclude>
-    <ClInclude Include="ImageInfo.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="ImageExporter.h" />
     <ClInclude Include="RenderEffects\LuminanceHeatmapEffect.h">
@@ -87,6 +89,10 @@
       <Filter>RuntimeClasses</Filter>
     </ClInclude>
     <ClInclude Include="RenderOptionsViewModel.h">
+      <Filter>RuntimeClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="MagicConstants.h" />
+    <ClInclude Include="ImageRenderer.h">
       <Filter>RuntimeClasses</Filter>
     </ClInclude>
   </ItemGroup>

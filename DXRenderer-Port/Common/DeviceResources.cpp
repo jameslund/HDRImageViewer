@@ -15,6 +15,7 @@
 
 using namespace D2D1;
 using namespace DirectX;
+using namespace ::DXRenderer;
 
 using namespace winrt;
 
@@ -67,7 +68,7 @@ namespace ScreenRotation
 };
 
 // Constructor for DeviceResources.
-DXRenderer::DeviceResources::DeviceResources() : 
+DeviceResources::DeviceResources() : 
     m_screenViewport(),
     m_d3dFeatureLevel(D3D_FEATURE_LEVEL_9_1),
     m_d3dRenderTargetSize(),
@@ -85,7 +86,7 @@ DXRenderer::DeviceResources::DeviceResources() :
 }
 
 // Configures resources that don't depend on the Direct3D device.
-void DXRenderer::DeviceResources::CreateDeviceIndependentResources()
+void DeviceResources::CreateDeviceIndependentResources()
 {
     // Initialize Direct2D resources.
     D2D1_FACTORY_OPTIONS options;
@@ -127,7 +128,7 @@ void DXRenderer::DeviceResources::CreateDeviceIndependentResources()
 }
 
 // Configures the Direct3D device, and stores handles to it and the device context.
-void DXRenderer::DeviceResources::CreateDeviceResources() 
+void DeviceResources::CreateDeviceResources() 
 {
     // This flag adds support for surfaces with a different color channel ordering
     // than the API default. It is required for compatibility with Direct2D.
@@ -215,7 +216,7 @@ void DXRenderer::DeviceResources::CreateDeviceResources()
 }
 
 // These resources need to be recreated every time the window size is changed.
-void DXRenderer::DeviceResources::CreateWindowSizeDependentResources() 
+void DeviceResources::CreateWindowSizeDependentResources() 
 {
     // Clear the previous window size specific context.
     ID3D11RenderTargetView* nullViews[] = {nullptr};
@@ -478,7 +479,7 @@ void DXRenderer::DeviceResources::CreateWindowSizeDependentResources()
     m_d2dContext->SetTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_GRAYSCALE);
 }
 
-IAsyncAction DXRenderer::DeviceResources::SetSwapChainAsync()
+IAsyncAction DeviceResources::SetSwapChainAsync()
 {
     // Associate the swap chain with SwapChainPanel.
     // UI changes will need to be dispatched back to the UI thread.
@@ -492,7 +493,7 @@ IAsyncAction DXRenderer::DeviceResources::SetSwapChainAsync()
 }
 
 // This method is called when the XAML control is created (or re-created).
-void DXRenderer::DeviceResources::SetSwapChainPanel(SwapChainPanel const& panel)
+void DeviceResources::SetSwapChainPanel(SwapChainPanel const& panel)
 {
     DisplayInformation currentDisplayInformation = DisplayInformation::GetForCurrentView();
 
@@ -509,7 +510,7 @@ void DXRenderer::DeviceResources::SetSwapChainPanel(SwapChainPanel const& panel)
 }
 
 // This method is called in the event handler for the SizeChanged event.
-void DXRenderer::DeviceResources::SetLogicalSize(Windows::Foundation::Size logicalSize)
+void DeviceResources::SetLogicalSize(Windows::Foundation::Size logicalSize)
 {
     if (m_logicalSize != logicalSize)
     {
@@ -519,7 +520,7 @@ void DXRenderer::DeviceResources::SetLogicalSize(Windows::Foundation::Size logic
 }
 
 // This method is called in the event handler for the DpiChanged event.
-void DXRenderer::DeviceResources::SetDpi(float dpi)
+void DeviceResources::SetDpi(float dpi)
 {
     if (dpi != m_dpi)
     {
@@ -531,7 +532,7 @@ void DXRenderer::DeviceResources::SetDpi(float dpi)
 }
 
 // This method is called in the event handler for the OrientationChanged event.
-void DXRenderer::DeviceResources::SetCurrentOrientation(DisplayOrientations currentOrientation)
+void DeviceResources::SetCurrentOrientation(DisplayOrientations currentOrientation)
 {
     if (m_currentOrientation != currentOrientation)
     {
@@ -541,7 +542,7 @@ void DXRenderer::DeviceResources::SetCurrentOrientation(DisplayOrientations curr
 }
 
 // This method is called in the event handler for the CompositionScaleChanged event.
-void DXRenderer::DeviceResources::SetCompositionScale(float compositionScaleX, float compositionScaleY)
+void DeviceResources::SetCompositionScale(float compositionScaleX, float compositionScaleY)
 {
     if (m_compositionScaleX != compositionScaleX ||
         m_compositionScaleY != compositionScaleY)
@@ -553,7 +554,7 @@ void DXRenderer::DeviceResources::SetCompositionScale(float compositionScaleX, f
 }
 
 // This method is called in the event handler for the DisplayContentsInvalidated event.
-void DXRenderer::DeviceResources::ValidateDevice()
+void DeviceResources::ValidateDevice()
 {
     // The D3D Device is no longer valid if the default adapter changed since the device
     // was created or if the device has been removed.
@@ -594,7 +595,7 @@ void DXRenderer::DeviceResources::ValidateDevice()
 }
 
 // Recreate all device resources and set them back to the current state.
-void DXRenderer::DeviceResources::HandleDeviceLost()
+void DeviceResources::HandleDeviceLost()
 {
     m_swapChain = nullptr;
 
@@ -614,14 +615,14 @@ void DXRenderer::DeviceResources::HandleDeviceLost()
 }
 
 // Register our DeviceNotify to be informed on device lost and creation.
-void DXRenderer::DeviceResources::RegisterDeviceNotify(DXRenderer::IDeviceNotify* deviceNotify)
+void DeviceResources::RegisterDeviceNotify(IDeviceNotify* deviceNotify)
 {
     m_deviceNotify = deviceNotify;
 }
 
 // Call this method when the app suspends. It provides a hint to the driver that the app 
 // is entering an idle state and that temporary buffers can be reclaimed for use by other apps.
-void DXRenderer::DeviceResources::Trim()
+void DeviceResources::Trim()
 {
     com_ptr<IDXGIDevice3> dxgiDevice;
     m_d3dDevice.as(dxgiDevice);
@@ -630,7 +631,7 @@ void DXRenderer::DeviceResources::Trim()
 }
 
 // Present the contents of the swap chain to the screen.
-void DXRenderer::DeviceResources::Present() 
+void DeviceResources::Present() 
 {
     // The first argument instructs DXGI to block until VSync, putting the application
     // to sleep until the next VSync. This ensures we don't waste any cycles rendering
@@ -659,7 +660,7 @@ void DXRenderer::DeviceResources::Present()
 
 // This method determines the rotation between the display device's native Orientation and the
 // current display orientation.
-DXGI_MODE_ROTATION DXRenderer::DeviceResources::ComputeDisplayRotation()
+DXGI_MODE_ROTATION DeviceResources::ComputeDisplayRotation()
 {
     DXGI_MODE_ROTATION rotation = DXGI_MODE_ROTATION_UNSPECIFIED;
 

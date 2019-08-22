@@ -17,7 +17,6 @@
 
 #pragma once
 #include "Common\DeviceResources.h"
-#include "ImageInfo.h"
 
 #include <cstdarg>
 
@@ -49,12 +48,12 @@ namespace DXRenderer
 
         ImageLoaderState GetState() const { return m_state; };
 
-        ImageInfo LoadImageFromWic(_In_ IStream* imageStream);
-        ImageInfo LoadImageFromDirectXTex(std::wstring filename, std::wstring extension);
+        winrt::DXRenderer::ImageInfo LoadImageFromWic(_In_ IStream* imageStream);
+        winrt::DXRenderer::ImageInfo LoadImageFromDirectXTex(std::wstring filename, std::wstring extension);
 
         ID2D1TransformedImageSource* GetLoadedImage(float zoom);
         ID2D1ColorContext* GetImageColorContext();
-        ImageInfo GetImageInfo();
+        winrt::DXRenderer::ImageInfo GetImageInfo();
 
         void CreateDeviceDependentResources();
         void ReleaseDeviceDependentResources();
@@ -81,7 +80,7 @@ namespace DXRenderer
 
         void LoadImageCommon(_In_ IWICBitmapSource* source);
         void CreateDeviceDependentResourcesInternal();
-        void PopulateImageInfoACKind(_Inout_ ImageInfo* info, _In_ IWICBitmapSource* source);
+        void PopulateImageInfoACKind(_Inout_ winrt::DXRenderer::ImageInfo* info, _In_ IWICBitmapSource* source);
         bool IsImageXboxHdrScreenshot(_In_ IWICBitmapSource* source);
         GUID TranslateDxgiFormatToWic(DXGI_FORMAT fmt);
 
@@ -92,7 +91,7 @@ namespace DXRenderer
         winrt::com_ptr<IWICColorContext>                m_wicColorContext;
 
         ImageLoaderState                                m_state;
-        ImageInfo                                       m_imageInfo;
+        winrt::DXRenderer::ImageInfo                    m_imageInfo;
 
         // Device-dependent
         winrt::com_ptr<ID2D1ImageSourceFromWic>         m_imageSource;
