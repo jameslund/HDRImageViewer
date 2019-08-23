@@ -337,7 +337,7 @@ ID2D1ColorContext* ImageLoader::GetImageColorContext()
 /// <summary>
 /// Gets ImageInfo.
 /// </summary>
-ImageInfo ImageLoader::GetImageInfo()
+winrt::DXRenderer::ImageInfo ImageLoader::GetImageInfo()
 {
     EnforceStates(2, ImageLoaderState::LoadingSucceeded, ImageLoaderState::NeedDeviceResources);
 
@@ -409,7 +409,7 @@ void ImageLoader::ReleaseDeviceDependentResources()
 /// </summary>
 /// <param name="info">Requires that all fields other than imageKind are already populated.</param>
 /// <param name="source">For some detection types, IWICBitmapFrameDecode is needed.</param>
-void ImageLoader::PopulateImageInfoACKind(_Inout_ ImageInfo* info, _In_ IWICBitmapSource* source)
+void ImageLoader::PopulateImageInfoACKind(_Inout_ winrt::DXRenderer::ImageInfo* info, _In_ IWICBitmapSource* source)
 {
     if (info->bitsPerPixel == 0 ||
         info->bitsPerChannel == 0 ||

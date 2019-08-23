@@ -84,7 +84,19 @@ namespace winrt::DXRenderer::implementation
     {
         throw hresult_not_implemented();
     }
+    DXRenderer::ImageCLL ImageRenderer::FitImageToWindow(bool computeMetadata)
+    {
+        throw hresult_not_implemented();
+    }
     void ImageRenderer::SetRenderOptions(DXRenderer::RenderEffectKind const& effect, float brightnessAdjustment, Windows::Graphics::Display::AdvancedColorInfo const& acInfo)
+    {
+        throw hresult_not_implemented();
+    }
+    DXRenderer::ImageInfo ImageRenderer::LoadImageFromWic(Windows::Storage::Streams::IRandomAccessStream const& imageStream)
+    {
+        throw hresult_not_implemented();
+    }
+    DXRenderer::ImageInfo ImageRenderer::LoadImageFromDirectXTex(hstring const& filename, hstring const& extension)
     {
         throw hresult_not_implemented();
     }

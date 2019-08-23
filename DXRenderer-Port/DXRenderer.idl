@@ -16,11 +16,11 @@ namespace DXRenderer
 
     struct ImageInfo
     {
-        Int32                                       bitsPerPixel;
-        Int32                                       bitsPerChannel;
+        UInt32                                      bitsPerPixel;
+        UInt32                                      bitsPerChannel;
         Boolean                                     isFloat;
         Windows.Foundation.Size                     size;
-        Int32                                       numProfiles;
+        UInt32                                      numProfiles;
         Windows.Graphics.Display.AdvancedColorKind  imageKind;
         Boolean                                     isXboxHdrScreenshot;
         Boolean                                     isValid;
@@ -91,7 +91,7 @@ namespace DXRenderer
         // Returns the computed MaxCLL and AvgCLL of the image in nits. While HDR metadata is a
         // property of the image (and is independent of rendering), our implementation
         // can't compute it until this point.
-        //ImageCLL FitImageToWindow(Boolean computeMetadata);
+        ImageCLL FitImageToWindow(Boolean computeMetadata);
 
         void SetRenderOptions(
             RenderEffectKind effect,
@@ -99,8 +99,8 @@ namespace DXRenderer
             Windows.Graphics.Display.AdvancedColorInfo acInfo
         );
 
-        //ImageInfo LoadImageFromWic(Windows.Storage.Streams.IRandomAccessStream imageStream);
-        //ImageInfo LoadImageFromDirectXTex(String filename, String extension);
+        ImageInfo LoadImageFromWic(Windows.Storage.Streams.IRandomAccessStream imageStream);
+        ImageInfo LoadImageFromDirectXTex(String filename, String extension);
         void      ExportImageToSdr(Windows.Storage.Streams.IRandomAccessStream outputStream, Guid wicFormat);
     }
 }

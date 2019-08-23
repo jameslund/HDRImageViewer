@@ -27,7 +27,10 @@ namespace winrt::DXRenderer::implementation
         void CreateImageDependentResources();
         void ReleaseImageDependentResources();
         void UpdateManipulationState(Windows::UI::Input::ManipulationUpdatedEventArgs const& args);
+        DXRenderer::ImageCLL FitImageToWindow(bool computeMetadata);
         void SetRenderOptions(DXRenderer::RenderEffectKind const& effect, float brightnessAdjustment, Windows::Graphics::Display::AdvancedColorInfo const& acInfo);
+        DXRenderer::ImageInfo LoadImageFromWic(Windows::Storage::Streams::IRandomAccessStream const& imageStream);
+        DXRenderer::ImageInfo LoadImageFromDirectXTex(hstring const& filename, hstring const& extension);
         void ExportImageToSdr(Windows::Storage::Streams::IRandomAccessStream const& outputStream, winrt::guid const& wicFormat);
     };
 }
