@@ -53,17 +53,20 @@ namespace DXRenderer
         Windows.Foundation.Collections.IVectorView<EffectOption> RenderEffects { get; };
     }
 
+    // Provides an interface for an application that owns DeviceResources to be notified of the device being lost or created.
+    interface IDeviceNotify
+    {
+        void OnDeviceLost();
+        void OnDeviceRestored();
+    };
+
     /// <summary>
     /// Main manager of all native DirectX image rendering resources.
     /// </summary
     [default_interface]
-    runtimeclass ImageRenderer
+    runtimeclass ImageRenderer : IDeviceNotify
     {
         ImageRenderer(Windows.UI.Xaml.Controls.SwapChainPanel panel);
-
-        // IDeviceNotify
-        void OnDeviceLost();
-        void OnDeviceRestored();
 
         // DeviceResources wrapper methods for Windows Runtime Component
         void SetSwapChainPanel(Windows.UI.Xaml.Controls.SwapChainPanel panel);

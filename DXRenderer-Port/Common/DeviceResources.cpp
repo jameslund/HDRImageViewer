@@ -615,7 +615,7 @@ void DeviceResources::HandleDeviceLost()
 }
 
 // Register our DeviceNotify to be informed on device lost and creation.
-void DeviceResources::RegisterDeviceNotify(IDeviceNotify* deviceNotify)
+void DeviceResources::RegisterDeviceNotify(winrt::DXRenderer::IDeviceNotify* deviceNotify)
 {
     m_deviceNotify = deviceNotify;
 }

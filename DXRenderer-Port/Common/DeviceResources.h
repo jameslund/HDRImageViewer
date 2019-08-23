@@ -17,13 +17,6 @@ using namespace winrt;
 
 namespace DXR
 {
-    // Provides an interface for an application that owns DeviceResources to be notified of the device being lost or created.
-    interface IDeviceNotify
-    {
-        virtual void OnDeviceLost() = 0;
-        virtual void OnDeviceRestored() = 0;
-    };
-
     // Controls all the DirectX device resources.
     class DeviceResources
     {
@@ -36,7 +29,7 @@ namespace DXR
         void SetCompositionScale(float compositionScaleX, float compositionScaleY);
         void ValidateDevice();
         void HandleDeviceLost();
-        void RegisterDeviceNotify(IDeviceNotify* deviceNotify);
+        void RegisterDeviceNotify(winrt::DXRenderer::IDeviceNotify* deviceNotify);
         void Trim();
         void Present();
 
@@ -109,8 +102,8 @@ namespace DXR
         D2D1::Matrix3x2F                                m_orientationTransform2D;
         DirectX::XMFLOAT4X4                             m_orientationTransform3D;
 
-        // The IDeviceNotify can be held directly as it owns the DeviceResources.
-        IDeviceNotify*                                  m_deviceNotify;
+        // The winrt::DXRenderer:: can be held directly as it owns the DeviceResources.
+        winrt::DXRenderer::IDeviceNotify*               m_deviceNotify;
 
         // Helper function to run on UI thread - only intended to be called from CreateDeviceResources().
         Windows::Foundation::IAsyncAction SetSwapChainAsync();
