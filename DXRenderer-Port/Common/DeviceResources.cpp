@@ -15,7 +15,7 @@
 
 using namespace D2D1;
 using namespace DirectX;
-using namespace ::DXRenderer;
+using namespace DXR;
 
 using namespace winrt;
 

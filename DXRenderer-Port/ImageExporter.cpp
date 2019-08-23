@@ -6,7 +6,7 @@
 
 using namespace winrt;
 
-using namespace ::DXRenderer;
+using namespace DXR;
 
 ImageExporter::ImageExporter()
 {
@@ -49,7 +49,7 @@ void ImageExporter::ExportToSdr(ImageLoader* loader, DeviceResources* res, IStre
     CHK(colorManage->SetValue(D2D1_COLORMANAGEMENT_PROP_DESTINATION_COLOR_CONTEXT, destCtx.get()));
 
     GUID tmGuid = {};
-    if (CheckPlatformSupport(::DXRenderer::Win1809)) tmGuid = CLSID_D2D1HdrToneMap;
+    if (CheckPlatformSupport(DXR::Win1809)) tmGuid = CLSID_D2D1HdrToneMap;
     else tmGuid = CLSID_CustomSimpleTonemapEffect;
 
     com_ptr<ID2D1Effect> tonemap;

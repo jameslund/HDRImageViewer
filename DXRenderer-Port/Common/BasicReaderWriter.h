@@ -15,7 +15,7 @@
 
 using namespace winrt;
 
-namespace DXRenderer
+namespace DXR
 {
     // A simple reader/writer class that provides support for reading and writing
     // files on disk. Provides synchronous and asynchronous methods.

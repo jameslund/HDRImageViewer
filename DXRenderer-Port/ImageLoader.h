@@ -20,7 +20,7 @@
 
 #include <cstdarg>
 
-namespace DXRenderer
+namespace DXR
 {
     /// <summary>
     /// State machine.

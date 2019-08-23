@@ -15,7 +15,7 @@
 
 using namespace winrt;
 
-namespace DXRenderer
+namespace DXR
 {
     // TODO: Migrate to just use this shorter identifier.
 #define CHK ThrowIfFailed

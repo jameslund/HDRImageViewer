@@ -4,7 +4,7 @@
 #include "DirectXTex.h"
 #include "DirectXTex\DirectXTexEXR.h"
 
-using namespace ::DXRenderer;
+using namespace DXR;
 
 using namespace DirectX;
 using namespace std;

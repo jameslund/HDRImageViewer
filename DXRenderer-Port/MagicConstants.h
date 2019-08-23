@@ -1,6 +1,6 @@
 #pragma once
 
-namespace DXRenderer
+namespace DXR
 {
     static const float sc_DefaultHdrDispMaxNits = 1499.0f; // Experimentally chosen for compatibility with 2018 TVs.
     static const float sc_DefaultSdrDispMaxNits = 270.0f; // Experimentally chosen based on typical SDR displays.

@@ -11,7 +11,7 @@
 #include "Common\DeviceResources.h"
 #include "ImageLoader.h"
 
-namespace DXRenderer
+namespace DXR
 {
     class ImageExporter
     {
