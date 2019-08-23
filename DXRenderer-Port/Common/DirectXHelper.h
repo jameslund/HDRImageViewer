@@ -17,10 +17,7 @@ using namespace winrt;
 
 namespace DXR
 {
-    // TODO: Migrate to just use this shorter identifier.
-#define CHK ThrowIfFailed
-
-    inline void ThrowIfFailed(HRESULT hr)
+    inline void CHK(HRESULT hr)
     {
         if (FAILED(hr))
         {
