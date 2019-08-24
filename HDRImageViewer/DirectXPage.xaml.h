@@ -81,7 +81,7 @@ namespace HDRImageViewer
         Platform::String^ ConvertACKindToString(Windows::Graphics::Display::AdvancedColorKind kind);
 
         // Resources used to draw the DirectX content in the XAML page.
-        DXRenderer::HDRImageViewerRenderer^             m_renderer;
+        DXRenderer::ImageRenderer^                      m_renderer;
         Windows::UI::Input::GestureRecognizer^          m_gestureRecognizer;
         bool                                            m_isWindowVisible;
 

@@ -617,7 +617,9 @@ void DeviceResources::HandleDeviceLost()
 // Register our DeviceNotify to be informed on device lost and creation.
 void DeviceResources::RegisterDeviceNotify(winrt::DXRenderer::IDeviceNotify* deviceNotify)
 {
-    m_deviceNotify = deviceNotify;
+    // TODO: this is not working correctly
+    printf("RegisterDeviceNotify %d", deviceNotify);
+    //m_deviceNotify = deviceNotify;
 }
 
 // Call this method when the app suspends. It provides a hint to the driver that the app 

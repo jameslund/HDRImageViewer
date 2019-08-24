@@ -118,7 +118,7 @@ DirectXPage::DirectXPage() :
 
     // At this point we have access to the device and
     // can create the device-dependent resources.
-    m_renderer = ref new HDRImageViewerRenderer(swapChainPanel);
+    m_renderer = ref new ImageRenderer(swapChainPanel);
 
     // Even if AdvancedColorInfo is not available, run the change handler anyway to set default values.
     UpdateDisplayACState(acInfo);

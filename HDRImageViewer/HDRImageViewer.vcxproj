@@ -414,8 +414,8 @@
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DXRenderer\DXRenderer.vcxproj">
-      <Project>{c2d1f457-8781-42ca-9db7-0f8bfca84ac4}</Project>
+    <ProjectReference Include="..\DXRenderer-Port\DXRenderer.vcxproj">
+      <Project>{e600f8d4-c500-42c5-a65a-c334b85c707d}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
