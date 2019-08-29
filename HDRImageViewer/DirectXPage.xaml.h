@@ -14,6 +14,7 @@
 #include "DirectXPage.g.h"
 
 #include "SdrBrightnessFormatter.h"
+#include "RenderOptions.h"
 
 namespace HDRImageViewer
 {
@@ -32,9 +33,9 @@ namespace HDRImageViewer
         void LoadDefaultImage();
         void LoadImage(_In_ Windows::Storage::StorageFile^ imageFile);
 
-        property DXRenderer::RenderOptionsViewModel^ ViewModel
+        property HDRImageViewer::RenderOptionsViewModel^ ViewModel
         {
-            DXRenderer::RenderOptionsViewModel^ get() { return m_renderOptionsViewModel; }
+            HDRImageViewer::RenderOptionsViewModel^ get() { return m_renderOptionsViewModel; }
         }
 
     private:
@@ -90,7 +91,7 @@ namespace HDRImageViewer
         DXRenderer::ImageCLL                            m_imageCLL;
         bool                                            m_isImageValid;
         Windows::Graphics::Display::AdvancedColorInfo^  m_dispInfo;
-        DXRenderer::RenderOptionsViewModel^             m_renderOptionsViewModel;
+        HDRImageViewer::RenderOptionsViewModel^             m_renderOptionsViewModel;
     };
 }
 

@@ -33,7 +33,7 @@ namespace DXRenderer
     };
 
     /// <summary>
-    /// Associates a effect type used by the renderer to a descriptive string bound to UI.
+    /// Associates an effect type used by the renderer to a descriptive string bound to UI.
     /// </summary>
     runtimeclass EffectOption
     {

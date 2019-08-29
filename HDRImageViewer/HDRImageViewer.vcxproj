@@ -379,6 +379,7 @@
       <DependentUpon>DirectXPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="RenderOptions.h" />
     <ClInclude Include="SdrBrightnessFormatter.h" />
   </ItemGroup>
   <ItemGroup>

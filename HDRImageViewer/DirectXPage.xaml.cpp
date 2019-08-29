@@ -406,7 +406,8 @@ void DirectXPage::UpdateRenderOptions()
 {
     if ((m_renderer != nullptr) && RenderEffectCombo->SelectedItem)
     {
-        auto tm = static_cast<EffectOption^>(RenderEffectCombo->SelectedItem);
+        // TODO: unsafe conversion between different namespace versions of EffectOption
+        auto tm = reinterpret_cast<DXRenderer::EffectOption^>(RenderEffectCombo->SelectedItem);
 
         m_renderer->SetRenderOptions(
             tm->Kind,
