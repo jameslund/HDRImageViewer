@@ -150,14 +150,12 @@ void ImageLoader::LoadImageCommon(_In_ IWICBitmapSource* source)
     com_ptr<IWICBitmapFrameDecode> frame;
     if (SUCCEEDED(source->QueryInterface(IID_PPV_ARGS(&frame))))
     {
-        CHK(
-            wicFactory->CreateColorContext(m_wicColorContext.put())
-        );
+        CHK(wicFactory->CreateColorContext(m_wicColorContext.put()));
 
-        CHK(
-            frame->GetColorContexts(
+        IWICColorContext* raw = m_wicColorContext.get();
+        CHK(frame->GetColorContexts(
                 1,
-                m_wicColorContext.put(), // Double pointer to emulate an array, not to write.
+                &raw, // Unclear why I can't directly use &m_wicColorContext.get()
                 &m_imageInfo.numProfiles
             )
         );
