@@ -14,6 +14,9 @@
     <Filter Include="RenderEffects">
       <UniqueIdentifier>{2696d988-fd48-43de-b313-d0320f662368}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libraw">
+      <UniqueIdentifier>{145b9d91-0993-4ec9-a3ab-113205130827}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -214,5 +217,10 @@
     <FxCompile Include="LuminanceHeatmapEffect.hlsl">
       <Filter>RenderEffects</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\libraw\dll\x64\libraw.dll">
+      <Filter>libraw</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

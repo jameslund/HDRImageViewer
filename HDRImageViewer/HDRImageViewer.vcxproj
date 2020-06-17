@@ -109,30 +109,40 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <CustomBuildBeforeTargets>
     </CustomBuildBeforeTargets>
+    <IncludePath>.\libraw\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <CustomBuildBeforeTargets>
     </CustomBuildBeforeTargets>
+    <IncludePath>.\libraw\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <CustomBuildBeforeTargets>
     </CustomBuildBeforeTargets>
+    <IncludePath>.\libraw\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <CustomBuildBeforeTargets>
     </CustomBuildBeforeTargets>
+    <IncludePath>.\libraw\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <CustomBuildBeforeTargets>
     </CustomBuildBeforeTargets>
+    <IncludePath>$(SolutionDir)\libraw\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)\libraw\lib\x64</LibraryPath>
+    <LibraryWPath>$(SolutionDir)\libraw\winmd;$(LibraryWPath)</LibraryWPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <CustomBuildBeforeTargets>
     </CustomBuildBeforeTargets>
+    <IncludePath>$(SolutionDir)\libraw\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)\libraw\lib\x64</LibraryPath>
+    <LibraryWPath>$(SolutionDir)\libraw\winmd;$(LibraryWPath)</LibraryWPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <Link>
-      <AdditionalDependencies>d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; dxguid.lib; %(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libraw.lib;d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; dxguid.lib; %(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); $(VCInstallDir)\lib\store\arm; $(VCInstallDir)\lib\arm</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
@@ -166,7 +176,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <Link>
-      <AdditionalDependencies>d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; dxguid.lib; %(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libraw.lib;d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; dxguid.lib; %(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); $(VCInstallDir)\lib\store\arm; $(VCInstallDir)\lib\arm</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
@@ -200,7 +210,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
-      <AdditionalDependencies>d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; dxguid.lib; %(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libraw.lib;d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; dxguid.lib; %(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); $(VCInstallDir)\lib\store; $(VCInstallDir)\lib</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
@@ -234,7 +244,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Link>
-      <AdditionalDependencies>d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; dxguid.lib; %(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libraw.lib;d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; dxguid.lib; %(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); $(VCInstallDir)\lib\store; $(VCInstallDir)\lib</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
@@ -268,7 +278,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <AdditionalDependencies>d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; dxguid.lib; %(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libraw.lib;d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; dxguid.lib; %(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
@@ -302,7 +312,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalDependencies>d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; dxguid.lib; %(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libraw.lib;d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; dxguid.lib; %(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); $(VCInstallDir)\lib\store\amd64; $(VCInstallDir)\lib\amd64</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
@@ -526,6 +536,11 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <CopyFileToFolders Include="..\libraw\dll\x64\libraw.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </CopyFileToFolders>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

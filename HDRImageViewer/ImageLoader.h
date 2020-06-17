@@ -51,6 +51,7 @@ namespace HDRImageViewer
 
         ImageInfo LoadImageFromWic(_In_ IStream* imageStream);
         ImageInfo LoadImageFromDirectXTex(_In_ Platform::String^ filename, _In_ Platform::String^ extension);
+        ImageInfo LoadImageFromLibRaw(_In_ Platform::String^ filename);
 
         ID2D1TransformedImageSource* GetLoadedImage(float zoom);
         ID2D1ColorContext* GetImageColorContext();

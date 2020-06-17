@@ -3,6 +3,7 @@
 #include "DirectXHelper.h"
 #include "DirectXTex.h"
 #include "DirectXTex\DirectXTexEXR.h"
+#include <libraw.h>
 
 using namespace HDRImageViewer;
 
@@ -109,6 +110,21 @@ ImageInfo ImageLoader::LoadImageFromDirectXTex(String^ filename, String^ extensi
     LoadImageFromDirectXTexInt(filename, extension);
 
     return m_imageInfo;
+}
+
+/// <summary>
+/// Performs CPU-side decoding of an image using LibRaw. EXPERIMENTAL ONLY.
+/// </summary>
+/// <remarks>
+/// </remarks>
+/// <param name="filename">The file path must be accessible from the sandbox, e.g. from the app's temp folder.</param>
+ImageInfo HDRImageViewer::ImageLoader::LoadImageFromLibRaw(Platform::String^ filename)
+{
+    LibRaw processor;
+
+    processor.open_file(filename->Data());
+
+    return ImageInfo();
 }
 
 /// <summary>
