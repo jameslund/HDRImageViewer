@@ -17,6 +17,7 @@
 #include "SphereMapEffect.h"
 #include "RenderOptions.h"
 #include "ImageLoader.h"
+#include "ImageFormatInfo.h"
 
 namespace HDRImageViewer
 {
@@ -50,7 +51,8 @@ namespace HDRImageViewer
             );
 
         ImageInfo LoadImageFromWic(_In_ IStream* imageStream);
-        ImageInfo LoadImageFromDirectXTex(_In_ Platform::String^ filename, _In_ Platform::String^ extension);
+        ImageInfo LoadImageFromDirectXTex(_In_ Platform::String^ filename, _In_ ImageFormatId id);
+        ImageInfo LoadImageFromLibRaw(_In_ Platform::String^ filename);
         void      ExportImageToSdr(_In_ IStream* outputStream, GUID wicFormat);
         void      ExportAsDdsTest(_In_ IStream* outputStream);
 

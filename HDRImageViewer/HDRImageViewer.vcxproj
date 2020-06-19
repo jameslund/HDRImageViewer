@@ -396,6 +396,7 @@
       <DependentUpon>ErrorContentDialog.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="ImageExporter.h" />
+    <ClInclude Include="ImageFormatInfo.h" />
     <ClInclude Include="ImageInfo.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="LuminanceHeatmapEffect.h" />

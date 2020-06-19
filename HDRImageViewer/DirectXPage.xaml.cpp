@@ -12,6 +12,7 @@
 #include "pch.h"
 #include "DirectXPage.xaml.h"
 #include "DirectXHelper.h"
+#include "ImageFormatInfo.h"
 
 using namespace HDRImageViewer;
 
@@ -142,19 +143,14 @@ void DirectXPage::LoadImage(_In_ StorageFile^ imageFile)
     BrightnessAdjustSlider->IsEnabled = false;
     RenderEffectCombo->IsEnabled = false;
 
-    bool useDirectXTex = false;
+    auto imageFmt = GetFormatFromExtension(imageFile->FileType->Data());
+    auto decoderLib = GetDecoderLibrary(imageFmt);
 
-    auto type = imageFile->FileType;
-    if (type == L".HDR" || type == L".hdr" ||
-        type == L".EXR" || type == L".exr" ||
-        type == L".DDS" || type == L".dds")
+    switch (decoderLib)
     {
-        useDirectXTex = true;
-    }
-
-    if (useDirectXTex)
-    {
-        // For formats that are loaded by DirectXTex, we must use a file path
+    case DecoderLibrary::DirectXTex:
+    case DecoderLibrary::LibRaw:
+        // For formats that are loaded by DirectXTex or LibRaw, we must use a file path
         // from the temporary folder.
         createFileTask = create_task([=] {
             return imageFile->CopyAsync(
@@ -162,29 +158,42 @@ void DirectXPage::LoadImage(_In_ StorageFile^ imageFile)
                 imageFile->Name,
                 NameCollisionOption::ReplaceExisting);
             });
-    }
-    else
-    {
+
+        break;
+
+    case DecoderLibrary::WIC:
         // For formats that are loaded by WIC, we can directly load from the file.
         createFileTask = create_task([=] { return imageFile; });
+        break;
+
+    default:
+        throw ref new Exception(E_UNEXPECTED);
+        break;
     }
 
     createFileTask.then([=](StorageFile^ imageFile) {
-        if (useDirectXTex)
+        switch (decoderLib)
         {
-            return create_task([=] { return m_renderer->LoadImageFromDirectXTex(imageFile->Path, type); });
-        }
-        else
-        {
-            return create_task(imageFile->OpenAsync(FileAccessMode::Read)
-        ).then([=](IRandomAccessStream^ ras) {
-            // If file opening fails, fall through to error handler at the end of task chain.
+        case DecoderLibrary::DirectXTex:
+            return create_task([=] { return m_renderer->LoadImageFromDirectXTex(imageFile->Path, imageFmt); });
+            break;
 
-            ComPtr<IStream> iStream;
-            DX::ThrowIfFailed(CreateStreamOverRandomAccessStream(ras, IID_PPV_ARGS(&iStream)));
-            return m_renderer->LoadImageFromWic(iStream.Get());
+        case DecoderLibrary::LibRaw:
+            return create_task([=] { return m_renderer->LoadImageFromLibRaw(imageFile->Path); });
+            break;
+
+        case DecoderLibrary::WIC:
+        default: // Todo: explicitly handle unknown case?
+            return create_task(imageFile->OpenAsync(FileAccessMode::Read)
+            ).then([=](IRandomAccessStream^ ras) {
+                // If file opening fails, fall through to error handler at the end of task chain.
+
+                ComPtr<IStream> iStream;
+                DX::ThrowIfFailed(CreateStreamOverRandomAccessStream(ras, IID_PPV_ARGS(&iStream)));
+                return m_renderer->LoadImageFromWic(iStream.Get());
             });
         }
+
     }).then([=](ImageInfo info) {
         // Temporarily store image decode result for the error handler.
         m_tempInfo = info;
@@ -259,13 +268,11 @@ void DirectXPage::LoadImage(_In_ StorageFile^ imageFile)
 
             if (m_tempInfo.isHeif == true)
             {
-                if (type == ".heic" ||
-                    type == ".HEIC")
+                if (imageFmt == ImageFormatId::Heic)
                 {
                     dialog->SetNeedHevcText(true);
                 }
-                else if (type == ".avif" ||
-                         type == ".AVIF")
+                else if (imageFmt == ImageFormatId::Avif)
                 {
                     dialog->SetNeedAv1Text(true);
                 }
@@ -307,7 +314,7 @@ void DirectXPage::SetUIFullscreen(bool value)
 void DirectXPage::ExportImageToSdr(_In_ Windows::Storage::StorageFile ^ file)
 {
     GUID wicFormat = {};
-    if (Platform::String::CompareOrdinal(file->FileType, L".jpg") == 0)
+    if (GetFormatFromExtension(file->FileType->Data()) == ImageFormatId::Jpg)
     {
         wicFormat = GUID_ContainerFormatJpeg;
     }
@@ -362,18 +369,13 @@ void DirectXPage::LoadImageButtonClick(_In_ Object^ sender, _In_ RoutedEventArgs
 {
     FileOpenPicker^ picker = ref new FileOpenPicker();
     picker->SuggestedStartLocation = PickerLocationId::Desktop;
-    picker->FileTypeFilter->Append(L".jxr");
-    picker->FileTypeFilter->Append(L".jpg");
-    picker->FileTypeFilter->Append(L".png");
-    picker->FileTypeFilter->Append(L".tif");
-    picker->FileTypeFilter->Append(L".hdr");
-    picker->FileTypeFilter->Append(L".exr");
-    picker->FileTypeFilter->Append(L".dds");
 
-    if (DX::CheckPlatformSupport(DX::OSVer::Win1903))
+    for (int i = 0; i < ARRAYSIZE(g_imageFormats); i++)
     {
-        picker->FileTypeFilter->Append(L".heic");
-        picker->FileTypeFilter->Append(L".avif");
+        if (DX::CheckPlatformSupport(g_imageFormats[i].minOSVer))
+        {
+            picker->FileTypeFilter->Append(ref new String(g_imageFormats[i].fileExtension.c_str()));
+        }
     }
 
     create_task(picker->PickSingleFileAsync()).then([=](StorageFile^ pickedFile) {

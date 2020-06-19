@@ -207,10 +207,17 @@ ImageInfo HDRImageViewerRenderer::LoadImageFromWic(_In_ IStream * imageStream)
     return m_imageInfo;
 }
 
-ImageInfo HDRImageViewerRenderer::LoadImageFromDirectXTex(String ^ filename, String ^ extension)
+ImageInfo HDRImageViewerRenderer::LoadImageFromDirectXTex(String ^ filename, ImageFormatId id)
 {
     m_imageLoader = std::make_unique<ImageLoader>(m_deviceResources);
-    m_imageInfo = m_imageLoader->LoadImageFromDirectXTex(filename, extension);
+    m_imageInfo = m_imageLoader->LoadImageFromDirectXTex(filename, id);
+    return m_imageInfo;
+}
+
+ImageInfo HDRImageViewer::HDRImageViewerRenderer::LoadImageFromLibRaw(Platform::String^ filename)
+{
+    m_imageLoader = std::make_unique<ImageLoader>(m_deviceResources);
+    m_imageInfo = m_imageLoader->LoadImageFromLibRaw(filename);
     return m_imageInfo;
 }
 

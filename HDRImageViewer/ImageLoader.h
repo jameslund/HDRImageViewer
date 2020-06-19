@@ -18,6 +18,7 @@
 #pragma once
 #include "DeviceResources.h"
 #include "ImageInfo.h"
+#include "ImageFormatInfo.h"
 
 #include <cstdarg>
 
@@ -50,7 +51,7 @@ namespace HDRImageViewer
         ImageLoaderState GetState() const { return m_state; };
 
         ImageInfo LoadImageFromWic(_In_ IStream* imageStream);
-        ImageInfo LoadImageFromDirectXTex(_In_ Platform::String^ filename, _In_ Platform::String^ extension);
+        ImageInfo LoadImageFromDirectXTex(_In_ Platform::String^ filename, _In_ ImageFormatId id);
         ImageInfo LoadImageFromLibRaw(_In_ Platform::String^ filename);
 
         ID2D1TransformedImageSource* GetLoadedImage(float zoom);
@@ -98,7 +99,8 @@ namespace HDRImageViewer
                 return; }
 
         void LoadImageFromWicInt(_In_ IStream* imageStream);
-        void LoadImageFromDirectXTexInt(_In_ Platform::String^ filename, _In_ Platform::String^ extension);
+        void LoadImageFromDirectXTexInt(_In_ Platform::String^ filename, _In_ ImageFormatId id);
+        void LoadImageFromLibRawInt(_In_ Platform::String^ filename);
         void LoadImageCommon(_In_ IWICBitmapSource* source);
         void CreateDeviceDependentResourcesInternal();
 

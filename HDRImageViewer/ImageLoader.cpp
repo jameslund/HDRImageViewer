@@ -104,10 +104,9 @@ void ImageLoader::LoadImageFromWicInt(_In_ IStream* imageStream)
 /// renderer, so we use WIC as an intermediate step which only supports some DDS DXGI_FORMAT values.
 /// </remarks>
 /// <param name="filename">The file path must be accessible from the sandbox, e.g. from the app's temp folder.</param>
-/// <param name="extension">File extension with leading period. Needed as DirectXTex doesn't auto-detect codec type.</param>
-ImageInfo ImageLoader::LoadImageFromDirectXTex(String^ filename, String^ extension)
+ImageInfo ImageLoader::LoadImageFromDirectXTex(String^ filename, ImageFormatId id)
 {
-    LoadImageFromDirectXTexInt(filename, extension);
+    LoadImageFromDirectXTexInt(filename, id);
 
     return m_imageInfo;
 }
@@ -120,11 +119,9 @@ ImageInfo ImageLoader::LoadImageFromDirectXTex(String^ filename, String^ extensi
 /// <param name="filename">The file path must be accessible from the sandbox, e.g. from the app's temp folder.</param>
 ImageInfo HDRImageViewer::ImageLoader::LoadImageFromLibRaw(Platform::String^ filename)
 {
-    LibRaw processor;
+    LoadImageFromLibRawInt(filename);
 
-    processor.open_file(filename->Data());
-
-    return ImageInfo();
+    return m_imageInfo;
 }
 
 /// <summary>
@@ -132,7 +129,21 @@ ImageInfo HDRImageViewer::ImageLoader::LoadImageFromLibRaw(Platform::String^ fil
 /// If any failure occurs during image loading, immediately exits with
 /// m_state and imageinfo set to failed.
 /// </summary>
-void ImageLoader::LoadImageFromDirectXTexInt(String^ filename, String^ extension)
+void ImageLoader::LoadImageFromLibRawInt(String^ filename)
+{
+    EnforceStates(1, ImageLoaderState::NotInitialized);
+
+    LibRaw processor;
+
+    processor.open_file(filename->Data());
+}
+
+/// <summary>
+/// Internal method is needed because IFRIMG macro methods must return void.
+/// If any failure occurs during image loading, immediately exits with
+/// m_state and imageinfo set to failed.
+/// </summary>
+void ImageLoader::LoadImageFromDirectXTexInt(String^ filename, ImageFormatId id)
 {
     EnforceStates(1, ImageLoaderState::NotInitialized);
 
@@ -141,17 +152,23 @@ void ImageLoader::LoadImageFromDirectXTexInt(String^ filename, String^ extension
     auto dxtScratch = new ScratchImage();
     auto filestr = filename->Data();
 
-    if (extension == L".EXR" || extension == L".exr")
+    switch (id)
     {
+    case ImageFormatId::Exr:
         IFRIMG(LoadFromEXRFile(filestr, nullptr, *dxtScratch));
-    }
-    else if (extension == L".HDR" || extension == L".hdr")
-    {
+        break;
+
+    case ImageFormatId::Hdr:
         IFRIMG(LoadFromHDRFile(filestr, nullptr, *dxtScratch));
-    }
-    else
-    {
+        break;
+
+    case ImageFormatId::Dds:
         IFRIMG(LoadFromDDSFile(filestr, 0, nullptr, *dxtScratch));
+        break;
+
+    default:
+        IFRIMG(E_UNEXPECTED);
+        break;
     }
 
     auto image = dxtScratch->GetImage(0, 0, 0); // Always get the first image.
@@ -185,8 +202,7 @@ void ImageLoader::LoadImageFromDirectXTexInt(String^ filename, String^ extension
 
     LoadImageCommon(dxtWicBitmap.Get());
 
-    // TODO: Common code to check file type?
-    if (extension == L".HDR" || extension == L".hdr")
+    if (id == ImageFormatId::Hdr)
     {
         // Manually fix up Radiance RGBE image file bit depth as DirectXTex expands it to 128bpp.
         // 16 bpc is not strictly accurate but best preserves the intent of RGBE.
