@@ -61,6 +61,12 @@ void ImageLoader::LoadImageFromWicInt(_In_ IStream* imageStream)
     GUID fmt;
     IFRIMG(decoder->GetContainerFormat(&fmt));
 
+    // As a hack, always treat TIFF images as if they were encoded in HDR10/BT.2100
+    if (fmt == GUID_ContainerFormatTiff)
+    {
+        m_imageInfo.forceBT2100ColorSpace = true;
+    }
+
     // Perform initial detection and handling of special case WIC decoders.
     if (fmt == GUID_ContainerFormatHeif)
     {
